@@ -3,7 +3,13 @@
  */
 public class Main {
     public static void main(String args[]){
-        Searcher searcher = new Searcher("https://hh.ru/search/vacancy?enable_snippets=true&items_on_page=100&no_magic=true&clusters=true");
+        Searcher searcher = new Searcher("https://hh.ru/vacancy/", 100);
+        String content = searcher.next();
+        if (content.indexOf("в архиве") != -1)
+            System.out.println("vacation №" + searcher.getId() + " is invalid");
+        Parser parser = new Parser();
+        parser.parseHTML(content);
+
     }
 }
 
