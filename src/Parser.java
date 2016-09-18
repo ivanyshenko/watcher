@@ -11,13 +11,11 @@ public class Parser {
 
     public Vacation parseHTML(String html) {
         Vacation vacation = null;
-        String name = catchFromTag("vacancy__name", html);
-        String company = catchFromTag("vacancy-employer", html);
-        company = company.replaceAll(" ","");
+        String name = catchFromTag("title b-vacancy-title", html);
+        String company = catchFromTag("hiringOrganization", html);
         String location = catchFromTag("vacancy-region", html);
-        String date = catchFromTag("vacancy-date", html);
+        String date = catchFromTag("vacancy-sidebar__publication-date", html);
         String experience = catchFromTag("vacancy__experience", html);
-        experience = new String(experience.replaceFirst(".*: ",""));
 
         vacation = new Vacation(name, company, location, date, experience);
         return vacation;
@@ -25,7 +23,7 @@ public class Parser {
 
     private String catchFromTag(String string, String html) {
         String result = null;
-        Pattern pattern = Pattern.compile("<[^<]*"+ string +"[^\\/]*\\/.*>");
+        Pattern pattern = Pattern.compile("<[^<]*"+ string + "[^<]*");
         Matcher matcher = pattern.matcher(html);
         if (matcher.find()) {
             result = matcher.group(0);

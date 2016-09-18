@@ -1,3 +1,4 @@
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
@@ -17,15 +18,25 @@ public class Searcher {
     public String next(){
         this.id++;
         String content = null;
-        URLConnection connection = null;
+        HttpURLConnection connection = null;
         try {
-            connection =  new URL(url + id).openConnection();
+//            connection =  new URL(url + id).openConnection();
+//            Scanner scanner = new Scanner(connection.getInputStream());
+//            scanner.useDelimiter("\\Z");
+//            content = scanner.next();
+            URL hhUrl = new URL(url + id);
+            connection = (HttpURLConnection) hhUrl.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("User-Agent","Mozilla/5.0");
             Scanner scanner = new Scanner(connection.getInputStream());
             scanner.useDelimiter("\\Z");
             content = scanner.next();
         }catch ( Exception ex ) {
             ex.printStackTrace();
         }
+
+
+
         return content;
     }
 
