@@ -15,15 +15,10 @@ public class Searcher {
         System.out.println("Searcher is created with url " + url);
     }
 
-    public String next(){
-        this.id++;
+    public String getContent(){
         String content = null;
         HttpURLConnection connection = null;
         try {
-//            connection =  new URL(url + id).openConnection();
-//            Scanner scanner = new Scanner(connection.getInputStream());
-//            scanner.useDelimiter("\\Z");
-//            content = scanner.next();
             URL hhUrl = new URL(url + id);
             connection = (HttpURLConnection) hhUrl.openConnection();
             connection.setRequestMethod("GET");
@@ -33,6 +28,7 @@ public class Searcher {
             content = scanner.next();
         }catch ( Exception ex ) {
             ex.printStackTrace();
+            return null;
         }
 
 

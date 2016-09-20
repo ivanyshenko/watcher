@@ -9,15 +9,14 @@ public class Parser {
         System.out.println("Parser is created");
     }
 
-    public Vacation parseHTML(String html) {
-        Vacation vacation = null;
+    public Vacation parseHTML(String html, int hhId) {
         String name = catchFromTag("title b-vacancy-title", html);
         String company = catchFromTag("hiringOrganization", html);
         String location = catchFromTag("vacancy-region", html);
         String date = catchFromTag("vacancy-sidebar__publication-date", html);
         String experience = catchFromTag("vacancy__experience", html);
 
-        vacation = new Vacation(name, company, location, date, experience);
+        Vacation vacation = new Vacation(hhId, name, company, location, date, experience);
         return vacation;
     }
 
