@@ -12,7 +12,7 @@ public class Searcher {
     public Searcher(String string, int from) {
         id = from;
         url = string;
-        System.out.println("Searcher is created with url " + url);
+        System.out.println("Searcher is created with url " + url + id);
     }
 
     public String getContent(){
