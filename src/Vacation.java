@@ -18,7 +18,7 @@ public class Vacation {
         this.experience = experience;
     }
 
-    public String toString (){
+    public String toString() {
         String result = null;
         result = "(" + hhId.toString()
                 + ", '" + name + "'"

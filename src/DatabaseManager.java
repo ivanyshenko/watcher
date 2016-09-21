@@ -10,7 +10,7 @@ public class DatabaseManager {
 
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            dbConnection = DriverManager.getConnection("jdbc:mysql://localhost/watcher_database","root","111");
+            dbConnection = DriverManager.getConnection("jdbc:mysql://localhost/watcher_database", "root", "111");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
