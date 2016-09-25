@@ -1,3 +1,5 @@
+package watcher;
+
 import java.sql.*;
 
 /**
@@ -8,7 +10,6 @@ public class DatabaseManager {
     private Connection dbConnection = null;
 
     public DatabaseManager() {
-
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             dbConnection = DriverManager.getConnection("jdbc:mysql://localhost/watcher_database", "root", "111");

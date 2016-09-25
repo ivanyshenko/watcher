@@ -1,3 +1,5 @@
+package watcher;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -13,7 +15,7 @@ public class Searcher {
     public Searcher(String string, int from) {
         id = from;
         url = string;
-        System.out.println("Searcher is created with url " + url + id);
+        System.out.println("watcher.Searcher is created with url " + url + id);
     }
 
     public String getContent() {

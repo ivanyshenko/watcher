@@ -1,5 +1,6 @@
+package watcher;
+
 import java.sql.SQLException;
-import java.util.Scanner;
 
 /**
  * Created by alex on 10.09.2016.
@@ -7,9 +8,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]) {
-        Scanner scanner = new Scanner(System.in);
-        int from = scanner.nextInt();
-        int to = scanner.nextInt();
+        int from = Integer.parseInt(args[0]);
+        int to = Integer.parseInt(args[0]);
         DatabaseManager dbManager = new DatabaseManager();
         for (int i = from; i <= to; i++) {
             Searcher searcher = new Searcher("https://hh.ru/vacancy/", i);

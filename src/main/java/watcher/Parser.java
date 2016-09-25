@@ -1,3 +1,5 @@
+package watcher;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -6,7 +8,7 @@ import java.util.regex.Pattern;
  */
 public class Parser {
     public Parser() {
-        System.out.println("Parser is created");
+        System.out.println("watcher.Parser is created");
     }
 
     public Vacation parseHTML(String html, int hhId) {
