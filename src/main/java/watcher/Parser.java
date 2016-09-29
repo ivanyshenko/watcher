@@ -7,8 +7,14 @@ import java.util.regex.Pattern;
  * Created by alex on 14.09.2016.
  */
 public class Parser {
-    public Parser() {
+    private static Parser ourInstance = new Parser();
+
+    private Parser() {
         System.out.println("watcher.Parser is created");
+    }
+
+    public static Parser getInstance() {
+        return ourInstance;
     }
 
     public Vacation parseHTML(String html, int hhId) {
@@ -17,11 +23,10 @@ public class Parser {
         String date = catchFromTag("vacancy-sidebar__publication-date", html);
 
         String importantVacancyInfo[] = catchFromTable("l-content-3colums", html);
-        String experience = new String(importantVacancyInfo[5]);
-        String location = new String(importantVacancyInfo[4]);
+        String experience = importantVacancyInfo[5];
+        String location = importantVacancyInfo[4];
 
-        Vacation vacation = new Vacation(hhId, name, company, location, date, experience);
-        return vacation;
+        return new Vacation(hhId, name, company, location, date, experience);
     }
 
     private String catchFromTag(String string, String html) {
@@ -31,7 +36,7 @@ public class Parser {
         if (matcher.find()) {
             result = matcher.group(0);
             result = result.replaceAll("<[^>]*>", "");
-            System.out.println(string + " is " + result);
+            result = result.replaceAll("^ *", "");
         } else System.out.println("name is not found");
         return result;
     }
@@ -39,13 +44,17 @@ public class Parser {
     private String[] catchFromTable(String string, String html) {
         Pattern pattern = Pattern.compile("<table.*" + string + ".*</table>");
         Matcher matcher = pattern.matcher(html);
-        String result;
         if (matcher.find()) {
-            result = matcher.group(0);
-            System.out.println(string + " is " + result.replaceAll("<[^>]*>", " "));
-            return result.split("<[^>]*>");
-        } else {
-            return null;
-        }
+            String tableString = matcher.group(0);
+            String[] resultArray = new String[6];
+            int j = 0;
+            for (String i : tableString.split("<[^>]*>")) {
+                if (i.length() != 0) {
+                    resultArray[j] = i;
+                    j++;
+                }
+            }
+            return resultArray;
+        } else { return null; }
     }
 }

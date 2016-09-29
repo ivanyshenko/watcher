@@ -8,9 +8,18 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String args[]) {
-        int from = Integer.parseInt(args[0]);
-        int to = Integer.parseInt(args[0]);
-        DatabaseManager dbManager = new DatabaseManager();
+        int database = Integer.parseInt(args[0]);
+        int from = Integer.parseInt(args[1]);
+        int to = Integer.parseInt(args[2]);
+
+        StorageFactory storageFactory = StorageFactory.getInstance();
+        Storage storage = null;
+        if (database == 0) {
+            storage = storageFactory.getStorage(database, "jdbc:mysql://localhost/watcher_database");
+        } else {
+            storage = storageFactory.getStorage(database, "vacations.csv");
+        }
+
         for (int i = from; i <= to; i++) {
             Searcher searcher = new Searcher("https://hh.ru/vacancy/", i);
             String content = searcher.getContent();
@@ -18,16 +27,17 @@ public class Main {
                 System.out.println("vacation with id " + i + "isn't exist or we don't have appropriate access");
                 continue;
             }
-            Parser parser = new Parser();
+            Parser parser = Parser.getInstance();
             Vacation vacation = parser.parseHTML(content, i);
             if (vacation != null) {
                 try {
-                    dbManager.append(vacation);
-                } catch (SQLException ex) {
+                    storage.append(vacation);
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         }
+        storage.closeConnection();
     }
 }
 

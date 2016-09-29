@@ -20,7 +20,7 @@ public class Vacation {
         this.experience = experience;
     }
 
-    public String toString() {
+    public String toSQLString() {
         String result = null;
         result = "(" + hhId.toString()
                 + ", '" + name + "'"
@@ -32,4 +32,14 @@ public class Vacation {
         return result;
     }
 
+    public String toCSVString(String delimiter){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(hhId).append(delimiter);
+        stringBuilder.append(name).append(delimiter);
+        stringBuilder.append(company).append(delimiter);
+        stringBuilder.append(location).append(delimiter);
+        stringBuilder.append(date).append(delimiter);
+        stringBuilder.append(experience).append("\n");
+        return stringBuilder.toString();
+    }
 }
