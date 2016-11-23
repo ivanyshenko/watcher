@@ -3,9 +3,7 @@ package watcher;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by alex on 14.09.2016.
- */
+
 public class Parser {
     private static Parser ourInstance = new Parser();
 
